@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test page</title>
+    <style>
+        body {
+            background-color: lightblue;
+        }
+        .pink {
+            background-color: lightpink;
+        }
+    </style>
+</head>
+<body>
+<button id="id-button">button</button>
+<script>
+    const log = console.log.bind(console)
+
+    const ajax = (method, url, data) => {
+        return new Promise((resolve, reject) => {
+            let r = new XMLHttpRequest()
+            r.open(method, url, true)
+            r.setRequestHeader('Content-Type', 'application/json')
+            r.onload = () => {
+                log('r', r.response)
+                resolve(r.response)
+            }
+            r.onerror = (err) => {
+                reject(err)
+            }
+            r.send(data)
+        })   
+    }
+
+    const fetchTodo = () => {
+        let method = 'GET'
+        let url = '/api/todo'
+        let data = ''
+        ajax(method, url, data).then(res => {
+            document.querySelector('body').insertAdjacentHTML('beforeEnd', `<div>数据: ${res}</div>`)
+        })
+    }
+
+    const bindEvents = () => {
+        let button = document.querySelector('#id-button')
+        button.addEventListener('click', (event) => {
+            document.body.classList.toggle('pink')
+            fetchTodo()
+        })
+    }
+
+    const __main = () => {
+        bindEvents()
+    }
+
+    __main()
+</script>
+</body>
+</html>
