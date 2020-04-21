@@ -2,13 +2,13 @@
 
 ### how to run:
 
-cd server
-yarn install
-yarn start
+cd server  
+yarn install  
+yarn start  
 
-cd proxy
-yarn install
-yarn start
+cd proxy  
+yarn install  
+yarn start  
 
 open browser at localhost:3300
 
